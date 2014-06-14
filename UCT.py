@@ -372,7 +372,8 @@ def UCTPlayGame():
         if state.playerJustMoved == 1:
             m = UCT(rootstate = state, itermax = 1000, verbose = False) # play with values for itermax and verbose = True
         else:
-            m = UCT(rootstate = state, itermax = 100, verbose = False)
+            # m = UCT(rootstate = state, itermax = 100, verbose = False)
+            m = OthelloInput()  # Toggle for human player.
         print "Best Move: " + str(m) + "\n"
         state.DoMove(m)
     if state.GetResult(state.playerJustMoved) == 1.0:
@@ -380,6 +381,14 @@ def UCTPlayGame():
     elif state.GetResult(state.playerJustMoved) == 0.0:
         print "Player " + str(3 - state.playerJustMoved) + " wins!"
     else: print "Nobody wins!"
+
+def OthelloInput():
+    """User input for Othello.
+    """
+    m = raw_input("Enter move as x,y:")
+    m = tuple(map(int, m.split(',')))
+    x, y = m
+    return x, y
 
 if __name__ == "__main__":
     """ Play a single game to the end using UCT for both players. 
